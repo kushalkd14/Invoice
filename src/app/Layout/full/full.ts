@@ -9,7 +9,6 @@ import { RouterOutlet } from '@angular/router';
 })
 export class Full {
 
-
     isDarkMode = false;
     currentLang = 'en';
 
