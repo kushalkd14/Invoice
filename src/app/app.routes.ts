@@ -51,11 +51,26 @@ export const routes: Routes = [
                             {
                                 path: 'add_party',
                                 loadComponent: () => import('./pages/masters/party-master/add-party/add-party').then(m => m.AddParty)
+                            },
+                            {
+                                path: 'item',
+                                loadComponent: () => import('./pages/masters/item-master/item-master').then(m => m.ItemMaster)
+                            },
+                            {
+                                path: 'item/add_item',
+                                loadComponent: () => import('./pages/masters/item-master/add-item/add-item').then(m => m.AddItem)
+                            }
+                        ]
+                    },
+                    {
+                        path: 'operations',
+                        children: [
+                            {
+                                path: 'invoice',
+                                loadComponent: () => import('./pages/operations/invoice/invoice').then(m => m.Invoice)
                             }
                         ]
                     }
-
-
                 ]
             }
         ]

@@ -1,0 +1,96 @@
+<div class="min-h-screen bg-slate-50 dark:bg-slate-950 md:py-12 md:px-4">
+    <div
+        class="mx-auto max-w-3xl bg-white dark:bg-slate-900 md:rounded-[2.5rem] shadow-2xl overflow-hidden border border-transparent dark:md:border-slate-800">
+
+        <div
+            class="px-6 py-5 border-b dark:border-slate-800 flex items-center justify-between bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
+            <div class="flex items-center gap-4">
+                <button (click)="goBack()"
+                    class="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 hover:bg-blue-600 hover:text-white transition-all">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <h2 class="text-xl font-black text-slate-900 dark:text-white">Add Item</h2>
+            </div>
+            <button (click)="saveItem()"
+                class="hidden md:block bg-blue-600 text-white px-8 py-2.5 rounded-xl font-bold hover:bg-blue-700 transition-all">
+                Save Item
+            </button>
+        </div>
+
+        <div class="p-6 md:p-10 space-y-8">
+
+            <div class="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-2xl w-full max-w-sm mx-auto">
+                <button (click)="item.type = 'Product'"
+                    [class]="item.type === 'Product' ? 'bg-white dark:bg-slate-700 shadow-sm text-blue-600' : 'text-slate-500'"
+                    class="flex-1 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-box"></i> Product
+                </button>
+                <button (click)="item.type = 'Service'"
+                    [class]="item.type === 'Service' ? 'bg-white dark:bg-slate-700 shadow-sm text-blue-600' : 'text-slate-500'"
+                    class="flex-1 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-hand-holding-heart"></i> Service
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="md:col-span-2 space-y-1.5">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Item Name *</label>
+                    <input type="text" [(ngModel)]="item.name" placeholder="e.g. Wireless Keyboard"
+                        class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-5 text-sm focus:ring-2 focus:ring-blue-500 outline-none dark:text-white">
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Selling Price
+                        (₹)</label>
+                    <input type="number" [(ngModel)]="item.price" placeholder="0.00"
+                        class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-5 text-sm focus:ring-2 focus:ring-blue-500 outline-none dark:text-white">
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">GST %</label>
+                    <select [(ngModel)]="item.gst"
+                        class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-5 text-sm focus:ring-2 focus:ring-blue-500 outline-none dark:text-white">
+                        <option [value]="0">None (0%)</option>
+                        <option [value]="5">5%</option>
+                        <option [value]="12">12%</option>
+                        <option [value]="18">18%</option>
+                        <option [value]="28">28%</option>
+                    </select>
+                </div>
+
+                <ng-container *ngIf="item.type === 'Product'">
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Opening
+                            Stock</label>
+                        <input type="number" [(ngModel)]="item.stock" placeholder="0"
+                            class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-5 text-sm focus:ring-2 focus:ring-blue-500 outline-none dark:text-white">
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Unit</label>
+                        <select [(ngModel)]="item.unit"
+                            class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-5 text-sm focus:ring-2 focus:ring-blue-500 outline-none dark:text-white">
+                            <option value="PCS">Pieces (PCS)</option>
+                            <option value="KG">Kilograms (KG)</option>
+                            <option value="BOX">Boxes (BOX)</option>
+                            <option value="LTR">Liters (LTR)</option>
+                        </select>
+                    </div>
+                </ng-container>
+
+                <div class="md:col-span-2 space-y-1.5">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">HSN/SAC Code</label>
+                    <input type="text" [(ngModel)]="item.hsn" placeholder="e.g. 8471"
+                        class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl py-4 px-5 text-sm focus:ring-2 focus:ring-blue-500 outline-none dark:text-white">
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 bg-white dark:bg-slate-900 border-t dark:border-slate-800 md:hidden">
+            <button (click)="saveItem()"
+                class="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-xl active:scale-[0.98] transition-all">
+                Add Item
+            </button>
+        </div>
+    </div>
+</div>

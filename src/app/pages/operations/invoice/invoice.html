@@ -1,0 +1,95 @@
+<div class="min-h-screen bg-slate-50 dark:bg-slate-950 pb-32">
+    <div
+        class="sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b dark:border-slate-800 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <button (click)="navigateToDashboard()" class="text-slate-500"><i
+                    class="fa-solid fa-xmark text-xl"></i></button>
+            <h1 class="text-xl font-black dark:text-white">New Sale</h1>
+        </div>
+        <button (click)="saveInvoice()"
+            class="bg-blue-600 text-white px-6 py-2 rounded-xl font-bold text-sm shadow-lg shadow-blue-500/30">
+            Generate
+        </button>
+    </div>
+
+    <div class="max-w-4xl mx-auto p-4 md:p-8 space-y-6">
+
+        <div
+            class="bg-white dark:bg-slate-900 rounded-[2rem] p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+            <p class="text-[10px] font-black uppercase text-blue-600 tracking-widest mb-4">Customer Details</p>
+            <select [(ngModel)]="selectedParty"
+                class="w-full bg-slate-50 dark:bg-slate-800 border-0 rounded-2xl py-4 px-4 text-sm focus:ring-2 focus:ring-blue-500 outline-none dark:text-white">
+                <option [ngValue]="null">Select a Party / Customer</option>
+                <option *ngFor="let p of availableParties" [ngValue]="p">{{p.name}} ({{p.gstin}})</option>
+            </select>
+            <div *ngIf="selectedParty"
+                class="mt-4 p-4 bg-blue-50 dark:bg-blue-500/10 rounded-2xl text-xs text-slate-600 dark:text-slate-300">
+                <i class="fa-solid fa-location-dot mr-2"></i> {{selectedParty.address}}
+            </div>
+        </div>
+
+        <div
+            class="bg-white dark:bg-slate-900 rounded-[2rem] p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+            <div class="flex justify-between items-center mb-4">
+                <p class="text-[10px] font-black uppercase text-blue-600 tracking-widest">Bill Items</p>
+                <button (click)="addItem()" class="text-blue-600 font-bold text-xs"><i
+                        class="fa-solid fa-plus mr-1"></i> Add Item</button>
+            </div>
+
+            <div class="space-y-4">
+                <div *ngFor="let item of itemsList; let i = index"
+                    class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 relative">
+                    <button (click)="removeItem(i)"
+                        class="absolute -top-2 -right-2 w-6 h-6 bg-red-100 text-red-600 rounded-full text-[10px] flex items-center justify-center border border-red-200"><i
+                            class="fa-solid fa-trash"></i></button>
+
+                    <div class="grid grid-cols-12 gap-3">
+                        <div class="col-span-12 md:col-span-6">
+                            <select [(ngModel)]="itemsList[i]" (change)="calculateRowTotal(itemsList[i])"
+                                class="w-full bg-transparent border-b border-slate-200 dark:border-slate-700 py-2 text-sm font-bold dark:text-white outline-none">
+                                <option *ngFor="let ai of availableItems" [ngValue]="ai">{{ai.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-span-4 md:col-span-2">
+                            <label class="text-[10px] text-slate-400 block">Price</label>
+                            <input type="number" [(ngModel)]="item.price" (input)="calculateRowTotal(item)"
+                                class="w-full bg-transparent text-sm font-bold dark:text-white outline-none">
+                        </div>
+                        <div class="col-span-4 md:col-span-2">
+                            <label class="text-[10px] text-slate-400 block">Qty</label>
+                            <input type="number" [(ngModel)]="item.qty" (input)="calculateRowTotal(item)"
+                                class="w-full bg-transparent text-sm font-bold dark:text-white outline-none">
+                        </div>
+                        <div class="col-span-4 md:col-span-2 text-right">
+                            <label class="text-[10px] text-slate-400 block">Total</label>
+                            <span class="text-sm font-black text-blue-600">₹{{item.total | number}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="itemsList.length === 0"
+                class="py-10 text-center border-2 border-dashed border-slate-100 dark:border-slate-800 rounded-3xl">
+                <p class="text-slate-400 text-sm italic">No items added to the bill yet.</p>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 dark:bg-blue-600 rounded-[2rem] p-8 text-white shadow-2xl">
+            <div class="space-y-3">
+                <div class="flex justify-between text-sm opacity-80">
+                    <span>Sub Total</span>
+                    <span>₹{{getSubTotal() | number}}</span>
+                </div>
+                <div class="flex justify-between text-sm opacity-80">
+                    <span>Tax (GST)</span>
+                    <span>₹{{getTotalTax() | number}}</span>
+                </div>
+                <div class="pt-4 border-t border-white/20 flex justify-between items-center">
+                    <span class="font-bold text-lg">Grand Total</span>
+                    <span class="font-black text-3xl tracking-tighter">₹{{getGrandTotal() | number}}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

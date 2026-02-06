@@ -7,6 +7,11 @@
                 class="bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 text-xs font-bold px-3 py-1 rounded-full">
                 {{parties.length}} Total
             </span>
+
+            <button routerLink="/full/pages/masters/add_party"
+                class="hidden md:block bg-blue-600 text-white px-6 py-2 rounded-xl font-bold text-sm">
+                + Add Party
+            </button>
         </div>
 
         <div class="relative">
@@ -58,13 +63,15 @@
             </div>
         </div>
     </div>
-    <div *ngIf="filteredParties().length === 0" class="flex flex-col items-center justify-center py-20 px-10 text-center">
+    <div *ngIf="filteredParties().length === 0"
+        class="flex flex-col items-center justify-center py-20 px-10 text-center">
         <div class="w-24 h-24 bg-slate-100 dark:bg-slate-900 rounded-full flex items-center justify-center mb-4">
             <i class="fa-solid fa-address-book text-4xl text-slate-300"></i>
         </div>
         <h3 class="text-lg font-bold text-slate-900 dark:text-white">No Parties Found</h3>
-        <p class="text-sm text-slate-500 mt-2">Start by adding your first customer or supplier to manage their balances.</p>
-    
+        <p class="text-sm text-slate-500 mt-2">Start by adding your first customer or supplier to manage their balances.
+        </p>
+
         <button routerLink="/parties/add"
             class="mt-6 bg-blue-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-blue-500/30">
             Add Your First Party
@@ -72,7 +79,7 @@
     </div>
 
     <button routerLink="/full/pages/masters/add_party"
-        class="fixed bottom-28 right-6 w-14 h-14 bg-blue-600 text-white rounded-2xl shadow-2xl flex items-center justify-center text-2xl active:scale-90 transition-all z-30">
+        class="md:hidden fixed bottom-28 right-6 w-14 h-14 bg-blue-600 text-white rounded-2xl shadow-2xl flex items-center justify-center text-2xl active:scale-90 transition-all z-30">
         <i class="fa-solid fa-plus"></i>
     </button>
 </div>
