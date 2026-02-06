@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+/* In Tailwind v4, this enables the class-based dark mode */
+/* @config "tailwind.config.js"; */
+
+/* OR, if you want to stay strictly in CSS (v4 style): */
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui;
+}
+
+/* Ensure the dark variant is tied to the .dark class */
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+}
